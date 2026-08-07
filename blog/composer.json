@@ -1,0 +1,14 @@
+{
+    "name": "yuvallevy/blog",
+    "description": "Yuval Levy's software blog",
+    "require": {
+        "php": "^8.3"
+    },
+    "config": {
+        "platform": {
+            "php": "8.3.0"
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
