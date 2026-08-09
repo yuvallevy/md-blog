@@ -20,7 +20,7 @@ foreach ($postMetadataList as $postMetadata) {
 
     $title = htmlspecialchars($postMetadata->title);
     $slug = htmlspecialchars($postMetadata->slug);
-    echo "<li><a href=\"?slug={$slug}\">{$title}</a></li>";
+    echo "<li><a href=\"/blog/$slug\">$title</a></li>";
 }
 echo '</ul>';
 

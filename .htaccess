@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# /blog and /blog/{slug} are handled by blog/index.php. Any real file or
+# directory (including the static homepage and every asset) is left alone -
+# these rules only ever fire for paths that don't already exist on disk.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^blog/?$ blog/index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^blog/([^/]+)/?$ blog/index.php?slug=$1 [L,QSA]
+
+# Disallow access to bare Markdown files in the blog/posts directory.
+# These are only meant to be read by the PHP scripts.
+RewriteRule ^blog/posts/.*\.md$ - [F,L]
