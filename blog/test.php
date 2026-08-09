@@ -16,11 +16,7 @@ $environment->addExtension(new GithubFlavoredMarkdownExtension());
 
 $converter = new MarkdownConverter($environment);
 
-$markdown = <<<EOT
-# Hello World
-
-This is **Markdown** content with a [link](https://example.com) and some `inline code`.
-EOT;
+$markdown = file_get_contents(__DIR__ . '/posts/hello-world.md');
 
 $html = $converter->convert($markdown);
 
