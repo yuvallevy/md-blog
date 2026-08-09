@@ -1,4 +1,6 @@
 <?php
+$pageTitle = 'Page not found - ' . SITE_TITLE;
+
 require __DIR__ . '/fragments/layout-top.php';
 ?>
 <p>
