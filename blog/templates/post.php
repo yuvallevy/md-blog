@@ -4,6 +4,9 @@
 
 declare(strict_types=1);
 
+$pageTitle = $post->metadata->title . ' - ' . SITE_TITLE;
+$pageDescription = $post->metadata->subtitle ?? $post->metadata->title;
+
 require __DIR__ . '/fragments/layout-top.php';
 
 echo "<h1>" . htmlspecialchars($post->metadata->title) . "</h1>";

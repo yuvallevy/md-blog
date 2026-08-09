@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+const SITE_TITLE = 'yuvallevy.dev blog';
+const DEFAULT_AUTHOR = 'Yuval Levy';
+
 require __DIR__ . '/vendor/autoload.php';
 
 use Blog\PostRepository;

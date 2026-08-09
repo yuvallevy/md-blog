@@ -7,6 +7,9 @@ declare(strict_types=1);
 use Symfony\Component\Yaml\Yaml;
 use Blog\PostMetadata;
 
+$pageTitle = SITE_TITLE;
+$pageDescription = null;
+
 require __DIR__ . '/fragments/layout-top.php';
 
 echo '<ul>';
