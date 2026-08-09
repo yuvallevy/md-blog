@@ -30,6 +30,8 @@ $markdown = file_get_contents($filename);
 
 $html = $converter->convert($markdown);
 
+require __DIR__ . '/templates/layout-top.php';
+
 echo $html;
 
-?>
+require __DIR__ . '/templates/layout-bottom.php';
