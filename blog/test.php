@@ -16,7 +16,9 @@ $environment->addExtension(new GithubFlavoredMarkdownExtension());
 
 $converter = new MarkdownConverter($environment);
 
-$markdown = file_get_contents(__DIR__ . '/posts/hello-world.md');
+$slug = $_GET['slug'] ?? null;
+
+$markdown = file_get_contents(__DIR__ . '/posts/' . ($slug ?? 'index') . '.md');
 
 $html = $converter->convert($markdown);
 
