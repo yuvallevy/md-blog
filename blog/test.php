@@ -18,7 +18,15 @@ $converter = new MarkdownConverter($environment);
 
 $slug = $_GET['slug'] ?? null;
 
-$markdown = file_get_contents(__DIR__ . '/posts/' . ($slug ?? 'index') . '.md');
+$filename = __DIR__ . '/posts/' . ($slug ?? 'index') . '.md';
+
+if (!file_exists($filename)) {
+    http_response_code(404);
+    require __DIR__ . '/templates/404.php';
+    return;
+}
+
+$markdown = file_get_contents($filename);
 
 $html = $converter->convert($markdown);
 
