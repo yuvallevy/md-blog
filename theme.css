@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'Libertinus Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/libertinus-sans@latest/latin-400-normal.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Libertinus Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/libertinus-sans@latest/latin-700-normal.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Libertinus Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/libertinus-sans@latest/latin-400-italic.woff2) format('woff2');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --paper: #FBF5EC;
+  --paper-2: #F4E9DA;
+  --paper-3: #EFE2D0;
+  --ink: #241A18;
+  --ink-soft: #594843;
+  --ink-faint: #8C7A71;
+  --line: rgba(36, 26, 24, .13);
+
+  --reserve-burgundy: #4B0A1B;
+  --ruby-merlot: #7A1528;
+  --garnet-rose: #A63048;
+  --copper-ale: #A15F2B;
+  --amber-lager: #C68A3E;
+  --new-england-ipa: #D9B44A;
+
+  --font-size: 18px;
+  --font-family: 'Libertinus Sans', 'Linux Biolinum', 'Optima', 'Open Sans', 'Candara', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono-font-family: 'SF Mono', 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+
+  --border-radius: 5px;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--font-size);
+  margin: 0;
+  line-height: 1.414;
+  letter-spacing: -.005em;
+}
+
+.muted {
+  color: color-mix(in srgb, currentColor 60%, transparent);
+}
+
+a {
+  color: var(--ruby-merlot);
+  text-underline-offset: 0.15em;
+  text-decoration-color: color-mix(in srgb, var(--ruby-merlot) 50%, transparent);
+}
+
+a:hover {
+  text-decoration-color: var(--ruby-merlot);
+}
+
+a:visited {
+  color: var(--ruby-merlot);
+}
+
+.eyebrow {
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--ruby-merlot);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+/* Inline code (default renderer + AttributesExtension only - no tempest here) */
+code {
+  font-family: var(--mono-font-family);
+  font-size: 0.9em;
+  background: var(--paper-2);
+  color: var(--ink);
+  padding: 0.125em 0.25em 0.1875em;
+  border: 1px solid var(--line);
+  border-radius: var(--border-radius);
+  letter-spacing: -.03em;
+}
