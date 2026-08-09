@@ -4,24 +4,21 @@
 
 declare(strict_types=1);
 
-use Symfony\Component\Yaml\Yaml;
-use Blog\PostMetadata;
-
 $pageTitle = SITE_TITLE;
 $pageDescription = null;
 
 require __DIR__ . '/fragments/layout-top.php';
+?>
 
-echo '<ul>';
-foreach ($postMetadataList as $postMetadata) {
-    if ($postMetadata->draft) {
-        continue;
-    }
+<ul>
+  <?php foreach ($postMetadataList as $postMetadata): ?>
+    <li>
+      <a href="/blog/<?= htmlspecialchars($postMetadata->slug) ?>">
+        <?= htmlspecialchars($postMetadata->title) ?>
+      </a>
+    </li>
+  <?php endforeach; ?>
+</ul>
 
-    $title = htmlspecialchars($postMetadata->title);
-    $slug = htmlspecialchars($postMetadata->slug);
-    echo "<li><a href=\"/blog/$slug\">$title</a></li>";
-}
-echo '</ul>';
-
+<?php
 require __DIR__ . '/fragments/layout-bottom.php';
