@@ -1,19 +1,20 @@
 <?php
-/** @var string $filename */
+
+/** @var \Blog\Post $post */
 
 declare(strict_types=1);
 
-$rawPost = file_get_contents($filename);
-
-// Find first instance of --- directly before AND after a newline
-$frontMatterEnd = strpos($rawPost, "\n---\n", 4) + strlen("\n---\n");
-// The post content is everything after that, trimmed of leading and trailing whitespace.
-$markdown = trim(substr($rawPost, $frontMatterEnd));
-
-$html = $converter->convert($markdown);
-
 require __DIR__ . '/fragments/layout-top.php';
 
-echo $html;
+echo "<h1>" . htmlspecialchars($post->metadata->title) . "</h1>";
+if ($post->metadata->subtitle !== null) {
+    echo "<p><em>" . htmlspecialchars($post->metadata->subtitle) . "</em></p>";
+}
+if ($post->metadata->draft) {
+    echo "<p><strong>Draft - not listed on /blog, visible only by direct link</strong></p>";
+}
+echo "<p><em>Published on " . htmlspecialchars($post->metadata->written?->format('F j, Y') ?? 'Unknown date') . " &middot; Last updated " . htmlspecialchars($post->metadata->updated?->format('F j, Y') ?? 'Unknown date') . "</em></p>";
+echo "<p><em>Thank you to my reviewer" . (count($post->metadata->reviewers) > 1 ? 's' : '') . ", " . htmlspecialchars(implode(', ', $post->metadata->reviewers)) . "</em></p>";
+echo "<div>" . $post->bodyHtml . "</div>";
 
 require __DIR__ . '/fragments/layout-bottom.php';
