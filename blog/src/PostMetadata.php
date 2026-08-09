@@ -42,7 +42,7 @@ final class PostMetadata {
         }
 
         if (is_int($value)) {
-            return (new DateTimeImmutable('@' . $value))->setTimezone(new \DateTimeZone('America/New_York'));
+            return (new DateTimeImmutable('@' . $value))->setTimezone(new \DateTimeZone('UTC'));
         }
 
         return new DateTimeImmutable((string) $value);
