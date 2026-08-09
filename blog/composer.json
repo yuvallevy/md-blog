@@ -3,7 +3,8 @@
     "description": "Yuval Levy's software blog",
     "require": {
         "php": "^8.3",
-        "league/commonmark": "^2.6"
+        "league/commonmark": "^2.6",
+        "symfony/yaml": "^7.4"
     },
     "autoload": {
         "psr-4": {

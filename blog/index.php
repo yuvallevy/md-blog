@@ -18,6 +18,13 @@ $converter = new MarkdownConverter($environment);
 
 $slug = $_GET['slug'] ?? null;
 
+if ($slug === null) {
+    require __DIR__ . '/templates/layout-top.php';
+    require __DIR__ . '/templates/post-list.php';
+    require __DIR__ . '/templates/layout-bottom.php';
+    return;
+}
+
 $filename = __DIR__ . '/posts/' . ($slug ?? 'index') . '.md';
 
 if (!file_exists($filename)) {
@@ -26,7 +33,12 @@ if (!file_exists($filename)) {
     return;
 }
 
-$markdown = file_get_contents($filename);
+$rawPost = file_get_contents($filename);
+
+// Find first instance of --- directly before AND after a newline
+$frontMatterEnd = strpos($rawPost, "\n---\n", 4) + strlen("\n---\n");
+// The post content is everything after that, trimmed of leading and trailing whitespace.
+$markdown = trim(substr($rawPost, $frontMatterEnd));
 
 $html = $converter->convert($markdown);
 
