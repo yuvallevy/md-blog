@@ -3,8 +3,9 @@
 declare(strict_types=1);
 
 use Symfony\Component\Yaml\Yaml;
+use Blog\PostMetadata;
 
-$posts = [];
+$postMetadataList = [];
 
 $frontMatterMarker = "---\n";
 
@@ -60,22 +61,23 @@ foreach (glob(__DIR__ . '/../posts/*.md') ?: [] as $path) {
         continue;
     }
 
-    $posts[] = [
-        'slug' => $slug,
-        ...$frontMatter,
-    ];
+    $postMetadataList[] = PostMetadata::fromFrontMatter($slug, $frontMatter);
 }
 
-usort($posts, static fn (array $a, array $b): int => strtotime((string) ($b['written'] ?? 0)) <=> strtotime((string) ($a['written'] ?? 0)));
+usort($postMetadataList, static fn (PostMetadata $a, PostMetadata $b): int => $b->written <=> $a->written);
+
+require __DIR__ . '/fragments/layout-top.php';
 
 echo '<ul>';
-foreach ($posts as $post) {
-    if (!empty($post['draft'])) {
+foreach ($postMetadataList as $postMetadata) {
+    if ($postMetadata->draft) {
         continue;
     }
 
-    $title = htmlspecialchars((string) ($post['title'] ?? $post['slug']));
-    $slug = htmlspecialchars((string) ($post['slug'] ?? ''));
+    $title = htmlspecialchars($postMetadata->title);
+    $slug = htmlspecialchars($postMetadata->slug);
     echo "<li><a href=\"?slug={$slug}\">{$title}</a></li>";
 }
 echo '</ul>';
+
+require __DIR__ . '/fragments/layout-bottom.php';
