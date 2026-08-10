@@ -184,3 +184,24 @@ figure.code code {
 .hl-number { color: var(--copper-ale); }
 .hl-comment { color: var(--ink-faint); font-style: italic; }
 .hl-injection { color: var(--amber-lager); }
+
+/* Language-specific classes for inline code spans.
+   Keep in sync with the `Languages` class in `blog/src/Languages.php`. */
+code.ts { color: #246AB5; }
+code.js { color: #796624; }
+code.c { color: #555555; }
+code.cpp { color: #BA2451; }
+code.cs { color: #026B00; }
+code.fs { color: #A218F5; }
+code.kt { color: #724ABA; }
+code.hs { color: #4A3B7A; }
+code.ml { color: #307A0E; }
+code.swift { color: #B35700; }
+code.py { color: #444EB8; }
+code.rs { color: #855D45; }
+code.go { color: #006E91; }
+code.java { color: #915814; }
+code.php { color: #4F5D95; }
+code.html { color: #B53A1B; }
+code.css { color: #663399; }
+code.rb { color: #701516; }
