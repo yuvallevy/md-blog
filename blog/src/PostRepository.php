@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Blog;
 
-use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\CommonMark\MarkdownConverter;
 use Symfony\Component\Yaml\Yaml;
 
 final class PostRepository {
@@ -69,7 +65,7 @@ final class PostRepository {
         $frontMatterEnd = strpos($rawPost, "\n" . self::$frontMatterMarker) + strlen("\n" . self::$frontMatterMarker);
         // The post content is everything after that, trimmed of leading and trailing whitespace.
         $markdown = trim(substr($rawPost, $frontMatterEnd));
-        $bodyHtml = (string) self::markdownConverter()->convert($markdown);
+        $bodyHtml = MarkdownEnvironment::render($markdown);
 
         return new Post($postMetadata, $bodyHtml);
     }
@@ -120,14 +116,5 @@ final class PostRepository {
 
     private static function isValidSlug(string $slug): bool {
         return preg_match('/^[a-z0-9-]+$/', $slug) === 1;
-    }
-
-    private static function markdownConverter(): MarkdownConverter {
-        $environment = new Environment();
-
-        $environment->addExtension(new CommonMarkCoreExtension());
-        $environment->addExtension(new GithubFlavoredMarkdownExtension());
-
-        return new MarkdownConverter($environment);
     }
 }
