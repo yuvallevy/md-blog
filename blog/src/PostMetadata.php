@@ -11,7 +11,7 @@ final class PostMetadata {
         public readonly string $slug,
         public readonly string $title,
         public readonly ?string $subtitle,
-        public readonly DateTimeImmutable $written,
+        public readonly ?DateTimeImmutable $written,
         public readonly ?DateTimeImmutable $updated,
         public readonly array $reviewers,
         public readonly bool $draft,
@@ -20,14 +20,23 @@ final class PostMetadata {
 
     /** @param array<string, mixed> $frontMatter */
     public static function fromFrontMatter(string $slug, array $frontMatter): self {
+        $draft = (bool) ($frontMatter['draft'] ?? false);
+        $written = self::parseDate($frontMatter['written'] ?? null);
+
+        // `written` is required for a published post (it drives index sort
+        // order and display), but a draft may not have one yet.
+        if ($written === null && !$draft) {
+            $written = new DateTimeImmutable('@0');
+        }
+
         return new self(
             slug: $slug,
             title: (string) ($frontMatter['title'] ?? $slug),
             subtitle: isset($frontMatter['subtitle']) ? (string) $frontMatter['subtitle'] : null,
-            written: self::parseDate($frontMatter['written'] ?? null) ?? new DateTimeImmutable('@0'),
+            written: $written,
             updated: self::parseDate($frontMatter['updated'] ?? null),
             reviewers: array_map('strval', (array) ($frontMatter['reviewers'] ?? [])),
-            draft: (bool) ($frontMatter['draft'] ?? false),
+            draft: $draft,
         );
     }
 

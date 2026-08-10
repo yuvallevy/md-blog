@@ -23,13 +23,17 @@ function friendlyList(array $items): string {
 
 <article class="post<?= $post->metadata->draft ? ' is-draft' : '' ?>">
   <header class="post-header">
-    <div class="eyebrow">
-      <time datetime="<?= $post->metadata->written->format('Y-m-d') ?>"><?= $post->metadata->written->format('F j, Y') ?></time>
-      <?php if ($post->metadata->updated !== null): ?>
-        &middot;
-        <time datetime="<?= $post->metadata->updated->format('Y-m-d') ?>">Updated <?= $post->metadata->updated->format('F j, Y') ?></time>
-      <?php endif; ?>
-    </div>
+    <?php if ($post->metadata->written !== null || $post->metadata->updated !== null): ?>
+      <div class="eyebrow">
+        <?php if ($post->metadata->written !== null): ?>
+          <time datetime="<?= $post->metadata->written->format('Y-m-d') ?>"><?= $post->metadata->written->format('F j, Y') ?></time>
+        <?php endif; ?>
+        <?php if ($post->metadata->updated !== null): ?>
+          <?php if ($post->metadata->written !== null): ?>&middot;<?php endif; ?>
+          <time datetime="<?= $post->metadata->updated->format('Y-m-d') ?>">Updated <?= $post->metadata->updated->format('F j, Y') ?></time>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
     <h1><?= htmlspecialchars($post->metadata->title) ?></h1>
     <?php if ($post->metadata->subtitle !== null): ?>
       <p class="post-subtitle"><?= htmlspecialchars($post->metadata->subtitle) ?></p>
