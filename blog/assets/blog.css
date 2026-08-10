@@ -119,3 +119,7 @@ pre code, table code {
   border: none;
   background: none;
 }
+
+table code {
+  font-size: 0.8em;
+}
