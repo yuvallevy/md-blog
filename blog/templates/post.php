@@ -36,7 +36,7 @@ function friendlyList(array $items): string {
     <?php endif; ?>
     <?php if ($post->metadata->reviewers !== []): ?>
       <div class="post-reviewers">
-        Thank you to my reviewer<?= count($post->metadata->reviewers) == 1 ? ',' : (count($post->metadata->reviewers) == 2 ? 's,' : 's:') ?>
+        Thank you to my reviewer<?= count($post->metadata->reviewers) === 1 ? ',' : (count($post->metadata->reviewers) === 2 ? 's,' : 's:') ?>
         <?= htmlspecialchars(friendlyList($post->metadata->reviewers)) ?>.
       </div>
     <?php endif; ?>
