@@ -69,4 +69,4 @@ Inline code is rendered separately through a combination of `AttributesExtension
 ## Security notes
 
 - `blog/index.php` only accepts slugs that match the regex `/^[a-z0-9-]+$/` when lowercased. Path traversal and arbitrary file access are not possible.
-- Markdown is rendered the default Commonmark configuration, which disables raw HTML and unsafe links. The only HTML allowed is what the Markdown parser itself generates.
+- Markdown is rendered using the default Commonmark configuration, which disables raw HTML and unsafe links. The only HTML allowed is what the Markdown parser itself generates.
