@@ -4,8 +4,8 @@
 
 declare(strict_types=1);
 
-$pageTitle = $post->metadata->title . ' - ' . SITE_TITLE;
-$pageDescription = $post->metadata->subtitle ?? $post->metadata->title;
+$pageTitle = \Blog\InlineMarkdown::plainText($post->metadata->title) . ' - ' . SITE_TITLE;
+$pageDescription = \Blog\InlineMarkdown::plainText($post->metadata->subtitle ?? $post->metadata->title);
 
 require __DIR__ . '/fragments/layout-top.php';
 
@@ -34,9 +34,9 @@ function friendlyList(array $items): string {
         <?php endif; ?>
       </div>
     <?php endif; ?>
-    <h1><?= htmlspecialchars($post->metadata->title) ?></h1>
+    <h1><?= $post->metadata->title ?></h1>
     <?php if ($post->metadata->subtitle !== null): ?>
-      <p class="post-subtitle"><?= htmlspecialchars($post->metadata->subtitle) ?></p>
+      <p class="post-subtitle"><?= $post->metadata->subtitle ?></p>
     <?php endif; ?>
     <?php if ($post->metadata->reviewers !== []): ?>
       <div class="post-reviewers">

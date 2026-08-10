@@ -31,8 +31,8 @@ final class PostMetadata {
 
         return new self(
             slug: $slug,
-            title: (string) ($frontMatter['title'] ?? $slug),
-            subtitle: isset($frontMatter['subtitle']) ? (string) $frontMatter['subtitle'] : null,
+            title: InlineMarkdown::render((string) ($frontMatter['title'] ?? $slug)),
+            subtitle: isset($frontMatter['subtitle']) ? InlineMarkdown::render((string) $frontMatter['subtitle']) : null,
             written: $written,
             updated: self::parseDate($frontMatter['updated'] ?? null),
             reviewers: array_map('strval', (array) ($frontMatter['reviewers'] ?? [])),

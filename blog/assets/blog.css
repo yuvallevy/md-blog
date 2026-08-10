@@ -124,7 +124,7 @@ h1 {
   max-width: 62ch;
 }
 
-pre code, table code {
+pre code, table code, h1 code {
   padding: 0;
   border: none;
   background: none;

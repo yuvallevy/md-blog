@@ -21,9 +21,9 @@ require __DIR__ . '/fragments/layout-top.php';
       <?php foreach ($postMetadataList as $postMetadata): ?>
         <li class="post-list-item">
           <a href="/blog/<?= htmlspecialchars($postMetadata->slug) ?>">
-            <h2><?= htmlspecialchars($postMetadata->title) ?></h2>
+            <h2><?= $postMetadata->title ?></h2>
             <?php if ($postMetadata->subtitle !== null): ?>
-              <p class="post-subtitle"><?= htmlspecialchars($postMetadata->subtitle) ?></p>
+              <p class="post-subtitle"><?= $postMetadata->subtitle ?></p>
             <?php endif; ?>
             <time datetime="<?= $postMetadata->written->format('Y-m-d') ?>"><?= $postMetadata->written->format('F j, Y') ?></time>
           </a>
