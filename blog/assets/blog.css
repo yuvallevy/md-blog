@@ -159,9 +159,28 @@ figure.code pre {
   border-radius: unset;
   background: unset;
   line-height: 1.414;
+}
+
+figure.code code {
   font-family: var(--mono-font-family);
+  font-size: 0.9em;
   background: none;
   border: none;
+  padding: 0;
   color: var(--ink);
   letter-spacing: -.01em;
 }
+
+/* Tempest CssTheme token classes, tuned to the wine/beer palette */
+.hl-keyword { color: var(--reserve-burgundy); font-weight: 700; }
+.hl-operator { color: var(--ink-soft); }
+.hl-type { color: var(--garnet-rose); }
+.hl-value,
+.hl-literal { color: var(--ruby-merlot); }
+.hl-variable { color: var(--ink); }
+.hl-property { color: var(--ink-squishy); }
+.hl-attribute { color: var(--copper-ale); }
+.hl-generic { color: var(--ink-soft); }
+.hl-number { color: var(--copper-ale); }
+.hl-comment { color: var(--ink-faint); font-style: italic; }
+.hl-injection { color: var(--amber-lager); }

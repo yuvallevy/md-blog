@@ -4,7 +4,8 @@
     "require": {
         "php": "^8.3",
         "league/commonmark": "^2.6",
-        "symfony/yaml": "^7.4"
+        "symfony/yaml": "^7.4",
+        "tempest/highlight": ">=2.6,<2.13"
     },
     "autoload": {
         "psr-4": {
