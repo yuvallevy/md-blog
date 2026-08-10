@@ -115,8 +115,7 @@ h1 {
 }
 
 .post-body blockquote {
-  margin-left: 1em;
-  border-left: 3px solid var(--garnet-rose);
+  margin-left: 0;
   padding: 0 1em 0 1.25em;
   color: var(--ink-soft);
 }
@@ -133,4 +132,36 @@ pre code, table code {
 
 table code {
   font-size: 0.8em;
+}
+
+figure.code {
+  /* `pre` lookalike, but with room for `figcaption` */
+  background: var(--paper-2);
+  padding: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--border-radius);
+  border-left: 6px solid var(--lang-text);
+  margin: 1rem 0;
+}
+
+figure.code figcaption {
+  font-size: 0.8em;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  color: var(--lang-text);
+}
+
+figure.code pre {
+  margin: 0;
+  padding: 0;
+  border: unset;
+  border-radius: unset;
+  background: unset;
+  line-height: 1.414;
+  font-family: var(--mono-font-family);
+  background: none;
+  border: none;
+  color: var(--ink);
+  letter-spacing: -.01em;
 }
