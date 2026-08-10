@@ -11,6 +11,7 @@ use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\Attributes\AttributesExtension;
+use League\CommonMark\Extension\SmartPunct\SmartPunctExtension;
 use League\CommonMark\MarkdownConverter;
 
 /**
@@ -25,6 +26,7 @@ final class MarkdownEnvironment
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
         $environment->addExtension(new FrontMatterExtension());
         $environment->addExtension(new AttributesExtension());
+        $environment->addExtension(new SmartPunctExtension());
         $environment->addRenderer(FencedCode::class, new FencedCodeRenderer(), 10);
 
         return new MarkdownConverter($environment);
