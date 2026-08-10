@@ -8,8 +8,12 @@ const DEFAULT_AUTHOR = 'Yuval Levy';
 require __DIR__ . '/vendor/autoload.php';
 
 use Blog\PostRepository;
+use Blog\RenderCache;
 
-$repository = new PostRepository(__DIR__ . '/posts');
+$repository = new PostRepository(
+    __DIR__ . '/posts',
+    new RenderCache(__DIR__ . '/cache'),
+);
 
 $slug = $_GET['slug'] ?? null;
 

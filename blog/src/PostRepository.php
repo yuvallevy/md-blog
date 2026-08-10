@@ -9,7 +9,10 @@ use Symfony\Component\Yaml\Yaml;
 final class PostRepository {
     private static string $frontMatterMarker = "---\n";
 
-    public function __construct(private readonly string $postsDirectory) {
+    public function __construct(
+        private readonly string $postsDirectory,
+        private readonly RenderCache $cache,
+    ) {
     }
 
     /** @return list<PostMetadata> */
@@ -48,12 +51,30 @@ final class PostRepository {
             return null;
         }
 
-        $markdown = file_get_contents($path);
-        if ($markdown === false) {
-            return null;
-        }
+        $cachedBodyHtml = $this->cache->get($slug, $path);
 
-        [$bodyHtml, $frontMatter] = MarkdownEnvironment::render($markdown);
+        $frontMatter = null;
+
+        // Cached version: read front matter and return cached body
+        if ($cachedBodyHtml !== null) {
+            $frontMatter = self::readFrontMatter($path);
+
+            if ($frontMatter === null) {
+                return null;
+            }
+
+            $bodyHtml = $cachedBodyHtml;
+        } else {
+            // No cached version: read front matter and render body
+            $markdown = file_get_contents($path);
+            if ($markdown === false) {
+                return null;
+            }
+
+            [$bodyHtml, $frontMatter] = MarkdownEnvironment::render($markdown);
+
+            $this->cache->put($slug, $bodyHtml);
+        }
 
         $postMetadata = PostMetadata::fromFrontMatter($slug, $frontMatter);
 
