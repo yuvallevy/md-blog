@@ -27,10 +27,12 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="yuvallevy.dev blog" />
     <link rel="stylesheet" href="/theme.css" />
+    <link rel="stylesheet" href="/blog/assets/blog.css" />
   </head>
 
   <body>
-    <header>
-      <a href="/blog">yuvallevy.dev blog</a>
+    <header id="blog-header">
+      <a href="/blog" id="blog-title-link">yuvallevy.dev blog</a>
     </header>
-    <main>
+
+    <main id="blog-main">

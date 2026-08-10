@@ -10,15 +10,28 @@ $pageDescription = null;
 require __DIR__ . '/fragments/layout-top.php';
 ?>
 
-<ul>
-  <?php foreach ($postMetadataList as $postMetadata): ?>
-    <li>
-      <a href="/blog/<?= htmlspecialchars($postMetadata->slug) ?>">
-        <?= htmlspecialchars($postMetadata->title) ?>
-      </a>
-    </li>
-  <?php endforeach; ?>
-</ul>
+<section id="blog-index">
+  <div class="eyebrow">Lessons from the workbench</div>
+  <h1>What I&rsquo;ve learned about software.</h1>
+
+  <?php if ($postMetadataList === []): ?>
+    <p class="muted">Nothing here yet - check back soon.</p>
+  <?php else: ?>
+    <ul class="post-list">
+      <?php foreach ($postMetadataList as $postMetadata): ?>
+        <li class="post-list-item">
+          <a href="/blog/<?= htmlspecialchars($postMetadata->slug) ?>">
+            <h2><?= htmlspecialchars($postMetadata->title) ?></h2>
+            <?php if ($postMetadata->subtitle !== null): ?>
+              <p class="post-subtitle"><?= htmlspecialchars($postMetadata->subtitle) ?></p>
+            <?php endif; ?>
+            <time datetime="<?= $postMetadata->written->format('Y-m-d') ?>"><?= $postMetadata->written->format('F j, Y') ?></time>
+          </a>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endif; ?>
+</section>
 
 <?php
 require __DIR__ . '/fragments/layout-bottom.php';
