@@ -86,7 +86,6 @@ a:visited {
   font-weight: 700;
 }
 
-/* Inline code (default renderer + AttributesExtension only - no tempest here) */
 code {
   font-family: var(--mono-font-family);
   font-size: 0.9em;
@@ -96,4 +95,18 @@ code {
   border: 1px solid var(--line);
   border-radius: var(--border-radius);
   letter-spacing: -.03em;
+}
+
+pre {
+  font-family: var(--mono-font-family);
+  font-size: 0.78em;
+  background: var(--paper-2);
+  color: var(--ink);
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--border-radius);
+  letter-spacing: -.02em;
+  overflow-x: auto;
+  margin-top: 1rem;
+  white-space: pre-wrap;
 }

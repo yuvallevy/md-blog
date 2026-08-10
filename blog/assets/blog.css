@@ -113,3 +113,9 @@ h1 {
 #blog-404 p {
   max-width: 62ch;
 }
+
+pre code, table code {
+  padding: 0;
+  border: none;
+  background: none;
+}
