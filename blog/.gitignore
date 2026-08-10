@@ -1,3 +1,7 @@
 vendor/
 composer.phar
 cache/*.html
+
+posts/*.md
+!posts/first-post.md
+!posts/draft-test.md
