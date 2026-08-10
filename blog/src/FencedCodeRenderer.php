@@ -34,20 +34,23 @@ final class FencedCodeRenderer implements NodeRendererInterface {
         }
 
         $infoWord = $node->getInfoWords()[0] ?? '';
-        $language = Languages::get($infoWord);
+        $language = $infoWord !== '' ? Languages::get($infoWord) : null;
 
-        $tokens = $this->highlighter->parse($node->getLiteral(), $language['slug']);
+        $tokens = $this->highlighter->parse($node->getLiteral(), $language['slug'] ?? '');
 
-        $figcaption = new HtmlElement('figcaption', [], htmlspecialchars($language['name'], ENT_QUOTES));
         $code = new HtmlElement('code', [], $tokens);
         $pre = new HtmlElement('pre', [], $code);
-        return new HtmlElement(
-            'figure',
-            [
-                'class' => 'code lang-' . $language['slug'],
-                'style' => "--lang-brand: {$language['brand']}; --lang-text: {$language['text']};",
-            ],
-            $figcaption->__toString() . $pre->__toString(),
-        );
+
+        $attributes = ['class' => 'code'];
+        $contents = $pre->__toString();
+
+        if ($language !== null) {
+            $figcaption = new HtmlElement('figcaption', [], htmlspecialchars($language['name'], ENT_QUOTES));
+            $contents = $figcaption->__toString() . $contents;
+            $attributes['class'] .= ' lang-' . $language['slug'];
+            $attributes['style'] = "--lang-brand: {$language['brand']}; --lang-text: {$language['text']};";
+        }
+
+        return new HtmlElement('figure', $attributes, $contents);
     }
 }

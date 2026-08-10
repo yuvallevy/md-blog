@@ -140,7 +140,7 @@ figure.code {
   padding: 0.5rem;
   border: 1px solid var(--line);
   border-radius: var(--border-radius);
-  border-left: 6px solid var(--lang-text);
+  border-left: 6px solid var(--lang-text, var(--line));
   margin: 1rem 0;
 }
 
@@ -149,7 +149,7 @@ figure.code figcaption {
   font-weight: 700;
   line-height: 1;
   margin-bottom: 0.5rem;
-  color: var(--lang-text);
+  color: var(--lang-text, var(--ink-faint));
 }
 
 figure.code pre {
