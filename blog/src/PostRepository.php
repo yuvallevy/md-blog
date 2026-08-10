@@ -48,24 +48,14 @@ final class PostRepository {
             return null;
         }
 
-        $frontMatter = self::readFrontMatter($path);
-
-        if ($frontMatter === null) {
+        $markdown = file_get_contents($path);
+        if ($markdown === false) {
             return null;
         }
+
+        [$bodyHtml, $frontMatter] = MarkdownEnvironment::render($markdown);
 
         $postMetadata = PostMetadata::fromFrontMatter($slug, $frontMatter);
-
-        $rawPost = file_get_contents($path);
-        if ($rawPost === false) {
-            return null;
-        }
-
-        // Find first instance of the front matter marker directly before AND after a newline
-        $frontMatterEnd = strpos($rawPost, "\n" . self::$frontMatterMarker) + strlen("\n" . self::$frontMatterMarker);
-        // The post content is everything after that, trimmed of leading and trailing whitespace.
-        $markdown = trim(substr($rawPost, $frontMatterEnd));
-        $bodyHtml = MarkdownEnvironment::render($markdown);
 
         return new Post($postMetadata, $bodyHtml);
     }
