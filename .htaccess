@@ -11,6 +11,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^blog/([^/]+)/?$ blog/index.php?slug=$1 [L,QSA]
 
-# Disallow access to bare Markdown files in the blog/posts directory.
+# Disallow access to bare Markdown files in blog/posts and blog/example-posts.
 # These are only meant to be read by the PHP scripts.
-RewriteRule ^blog/posts/.*\.md$ - [F,L]
+RewriteRule ^blog/(posts|example-posts)/.*\.md$ - [F,L]

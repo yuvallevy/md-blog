@@ -2,16 +2,22 @@
 
 declare(strict_types=1);
 
-const SITE_TITLE = 'yuvallevy.dev blog';
-const DEFAULT_AUTHOR = 'Yuval Levy';
-
 require __DIR__ . '/vendor/autoload.php';
 
 use Blog\PostRepository;
 use Blog\RenderCache;
 
+// Real content/config, when present, always wins over the committed
+// examples - config.php and posts/ are both gitignored, so a fresh clone
+// falls back to the blank-slate defaults until you add your own.
+$config = require is_file(__DIR__ . '/config.php') ? __DIR__ . '/config.php' : __DIR__ . '/config.example.php';
+
+$postsDirectory = is_dir(__DIR__ . '/posts') && glob(__DIR__ . '/posts/*.md') !== []
+    ? __DIR__ . '/posts'
+    : __DIR__ . '/example-posts';
+
 $repository = new PostRepository(
-    __DIR__ . '/posts',
+    $postsDirectory,
     new RenderCache(__DIR__ . '/cache'),
 );
 

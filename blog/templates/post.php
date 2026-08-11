@@ -1,10 +1,13 @@
 <?php
 
-/** @var \Blog\Post $post */
+/**
+ * @var \Blog\Post $post
+ * @var array $config
+ */
 
 declare(strict_types=1);
 
-$pageTitle = \Blog\InlineMarkdown::plainText($post->metadata->title) . ' - ' . SITE_TITLE;
+$pageTitle = \Blog\InlineMarkdown::plainText($post->metadata->title) . ' - ' . $config['siteTitle'];
 $pageDescription = \Blog\InlineMarkdown::plainText($post->metadata->subtitle ?? $post->metadata->title);
 
 require __DIR__ . '/fragments/layout-top.php';

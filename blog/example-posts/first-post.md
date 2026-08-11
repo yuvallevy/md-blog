@@ -6,11 +6,13 @@ updated: 2026-08-10
 reviewers: [Alex, Sam]
 ---
 
-If you're reading this in a browser, the engine is working. If you're reading the raw file in `posts/first-post.md`, you're looking at the source for everything below - front matter, code blocks, and all. Feel free to delete this post once you've written your own, but it doubles as documentation, so it's worth reading through and keeping around for reference.
+If you're reading this in a browser, the engine is working. If you're reading the raw file, you're looking at `example-posts/first-post.md` - source for everything below, front matter, code blocks, and all.
+
+This lives in `example-posts/`, not `posts/`: it's only shown while `posts/` is empty. The moment you add your own first `.md` file to `posts/`, this whole directory stops being read and your real posts take over completely - nothing to delete, nothing to remember. Come back and reread it whenever you need a reference for what this engine can do.
 
 ## How it works
 
-Every post is a Markdown file with a little YAML front matter on top, sitting in `posts/`. There's no database and no admin panel - you write a file, upload it, and it shows up at a pretty URL. A small render cache keeps repeated requests from re-parsing the same file over and over, but it's dead simple: delete the `cache/` directory at any time and everything regenerates on the next request.
+Every post is a Markdown file with a little YAML front matter on top, sitting in `posts/` (or, for this one, `example-posts/`). There's no database and no admin panel - you write a file, upload it, and it shows up at a pretty URL. A small render cache keeps repeated requests from re-parsing the same file over and over, but it's dead simple: delete the `cache/` directory at any time and everything regenerates on the next request.
 
 The router itself is short. This handles both `/blog` and `/blog/{slug}`:
 

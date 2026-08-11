@@ -2,6 +2,7 @@ vendor/
 composer.phar
 cache/*.html
 
-posts/*.md
-!posts/first-post.md
-!posts/draft-test.md
+# Real content and site config - gitignored so a fresh clone starts blank.
+# See example-posts/ and config.example.php for the committed fallbacks.
+posts/
+config.php

@@ -1,5 +1,7 @@
 <?php
-$pageTitle = 'Page not found - ' . SITE_TITLE;
+/** @var array $config */
+
+$pageTitle = 'Page not found - ' . $config['siteTitle'];
 
 require __DIR__ . '/fragments/layout-top.php';
 ?>

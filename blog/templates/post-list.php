@@ -1,18 +1,21 @@
 <?php
 
-/** @var list<\Blog\PostMetadata> $postMetadataList */
+/**
+ * @var list<\Blog\PostMetadata> $postMetadataList
+ * @var array $config
+ */
 
 declare(strict_types=1);
 
-$pageTitle = SITE_TITLE;
+$pageTitle = $config['siteTitle'];
 $pageDescription = null;
 
 require __DIR__ . '/fragments/layout-top.php';
 ?>
 
 <section id="blog-index">
-  <div class="eyebrow">Lessons from the workbench</div>
-  <h1>What I&rsquo;ve learned about software.</h1>
+  <div class="eyebrow"><?= htmlspecialchars($config['indexEyebrow']) ?></div>
+  <h1><?= htmlspecialchars($config['indexHeading']) ?></h1>
 
   <?php if ($postMetadataList === []): ?>
     <p class="muted">Nothing here yet - check back soon.</p>
