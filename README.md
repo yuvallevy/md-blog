@@ -40,7 +40,7 @@ composer install --no-dev --optimize-autoloader
 
 The whole project, as-is, including `vendor/`:
 
-- `theme.css` and any other files outside `blog/`
+- `theme.css` and any other HTML/JS/CSS files outside `blog/`
 - `.htaccess` (repo root - this is what makes `/blog` and `/blog/{slug}` work; without it those URLs 404)
 - `blog/` in full, including `vendor/`, `posts/`, `cache/` (can be uploaded empty - it self-populates), `composer.json`/`composer.lock`, and `config.php` if you created one (uploading without it just means the site runs with `config.example.php`'s placeholder branding)
 
