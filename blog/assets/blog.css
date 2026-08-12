@@ -16,8 +16,13 @@
 }
 
 #blog-main {
-  padding: 4rem calc(2rem + max(0px, 100vw - 800px) / 2);
+  padding: 4rem 0;
   max-width: 100%;
+}
+
+#blog-index,
+#blog-404 {
+  padding-inline: calc(2rem + max(0px, 100vw - 800px) / 2);
 }
 
 #blog-footer {
@@ -80,6 +85,48 @@ h1 {
   color: var(--ink-faint);
 }
 
+/* Breakout grid: Most content defaults to the `content` track. Tables span
+   the wider `wide` track, wider than prose without going all the way to the edges. */
+.post {
+  display: grid;
+  grid-template-columns:
+    [full-start] minmax(2rem, 1fr)
+    [wide-start] minmax(0, 190px)
+    [content-start] min(calc(800px - 4rem), 100% - 4rem)
+    [content-end] minmax(0, 190px)
+    [wide-end] minmax(2rem, 1fr)
+    [full-end];
+}
+
+/* Grid items never collapse margins with each other,
+   so margins here are single-direction - top only, bottom always 0.
+   Since a margin never has a neighbor to double up with,
+   elements that need more space before them (h2, table, figure.code below)
+   can just set a bigger margin-top with no risk of it stacking. */
+.post > *,
+.post-body > * {
+  grid-column: content;
+  min-width: 0; /* grid items default to min-width: auto; without this, any
+                   child with a wide intrinsic content size (a table, a long
+                   unbroken line) can blow out its track and overflow the page */
+  margin-top: 1.3em;
+  margin-bottom: 0;
+}
+
+/* The first child of a post is the only one that doesn't need a top margin,
+   so we set margin-top to 0 in addition to the default margin-bottom: 0 above. */
+.post > *:first-child {
+  margin-top: 0;
+}
+
+/* Tables are a grandchild via .post-body, but we want them to be direct
+   children of the .post grid so they can be assigned the correct grid-column.
+   For this we use display: contents on .post-body which makes its children
+   behave as if they were direct children of the parent. */
+.post-body {
+  display: contents;
+}
+
 .draft-banner {
   background: var(--paper-3);
   color: var(--ink);
@@ -120,6 +167,37 @@ h1 {
   color: var(--ink-soft);
 }
 
+.post-body table {
+  grid-column: wide;
+  justify-self: center;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  /* grid items default to min-width: auto (content's intrinsic width)
+     This messes up tables, whose organic width can be wider than the `wide` track.
+     min-width: 0 opts back into being allowed to shrink below that. */
+  min-width: 0;
+  overflow-x: auto;
+  margin-top: 2em; /* margin-bottom is already 0 from the default above */
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+
+.post-body th,
+.post-body td {
+  padding: 0.5em 0.9em;
+  border: 1px solid var(--line);
+  vertical-align: top;
+  text-align: left;
+}
+
+.post-body th {
+  background: var(--paper-2);
+  color: var(--reserve-burgundy);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 #blog-404 p {
   max-width: 62ch;
 }
@@ -141,7 +219,7 @@ figure.code {
   border: 1px solid var(--line);
   border-radius: var(--border-radius);
   border-left: 6px solid var(--lang-text, var(--line));
-  margin: 1rem 0;
+  margin: 1rem 0 0;
 }
 
 figure.code figcaption {

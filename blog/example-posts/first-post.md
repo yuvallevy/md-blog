@@ -67,6 +67,22 @@ This is a plain fence with no language tag. It gets a frame, but no label and no
 
 Sometimes a single word needs a color, not a whole block. Different languages spell the same idea differently, and reading it inline in two colors makes the comparison land faster than a whole second fenced block would: JavaScript calls it `null`{.js}, Python calls it `None`{.py} - same concept, two names, one line. Great for language-comparison posts.
 
+## Tables get more room than prose
+
+Regular text stays in a comfortable reading column, but tables tend to need more horizontal space than that column allows, so they're allowed to break out wider - up to a point, not all the way to the edges of the page:
+
+| Language   | Fenced block tag | Tokenized here? | Inline class | Brand color | Why it's tokenized or not |
+|------------|:-----------------:|:------------------:|:--------------:|:-------------|:---------------------------|
+| TypeScript | `ts`              | No                | `.ts`          | `#3178C6`    | No grammar shipped for it in this version of the highlighter, so it falls back to plain text |
+| JavaScript | `js`              | Yes               | `.js`          | `#F1E05A`    | Ships a full grammar - keywords, strings, and comments all get their own token colors |
+| Python     | `py`              | Yes               | `.py`          | `#3572A5`    | Same as JavaScript - a real grammar, so every token gets colored individually |
+| C#         | `cs`              | No                | `.cs`          | `#178600`    | Falls back to plain text for the same reason as TypeScript - just no grammar yet |
+| Kotlin     | `kt`              | No                | `.kt`          | `#A97BFF`    | Also plain text - still gets the right label and color, just not per-token |
+| Rust       | `rs`              | No                | `.rs`          | `#DEA584`    | Same story - the label and chrome work regardless of tokenizer support |
+| Go         | `go`              | No                | `.go`          | `#00ADD8`    | Ditto - this table exists mostly to prove it can get wider than a sentence like this one |
+
+Try it at a few browser widths: the prose column above and below the table doesn't move, only the table gets extra room, and it scrolls horizontally instead of overflowing if it's ever wider than that.
+
 ## Summary
 
-That's the feature set this post exists to demonstrate: front matter with every field, a tokenized block, an untokenized block, and inline language color. Write your own post the same way, and you're off. GLHF!
+That's the feature set this post exists to demonstrate: front matter with every field, a tokenized block, an untokenized block, inline language color, and a wide table. Write your own post the same way, and you're off. GLHF!
