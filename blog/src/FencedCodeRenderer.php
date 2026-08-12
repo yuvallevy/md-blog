@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Blog;
 
+use Blog\Highlight\Languages\CSharp\CSharpLanguage;
+use Blog\Highlight\Languages\Kotlin\KotlinLanguage;
+use Blog\Highlight\Languages\TypeScript\TypeScriptLanguage;
 use InvalidArgumentException;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Node\Node;
@@ -25,7 +28,10 @@ final class FencedCodeRenderer implements NodeRendererInterface {
     private Highlighter $highlighter;
 
     public function __construct() {
-        $this->highlighter = new Highlighter(new CssTheme());
+        $this->highlighter = (new Highlighter(new CssTheme()))
+            ->addLanguage(new CSharpLanguage())
+            ->addLanguage(new TypeScriptLanguage())
+            ->addLanguage(new KotlinLanguage());
     }
 
     public function render(Node $node, ChildNodeRendererInterface $childRenderer): HtmlElement {

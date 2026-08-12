@@ -1,0 +1,24 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Blog\Highlight\Languages\Kotlin\Patterns;
+
+use Tempest\Highlight\IsPattern;
+use Tempest\Highlight\Pattern;
+use Tempest\Highlight\Tokens\TokenTypeEnum;
+
+final readonly class KeywordPattern implements Pattern
+{
+    use IsPattern;
+
+    public function __construct(private string $keyword) {}
+
+    public function getPattern(): string {
+        return "/\\b(?<match>{$this->keyword})\\b/";
+    }
+
+    public function getTokenType(): TokenTypeEnum {
+        return TokenTypeEnum::KEYWORD;
+    }
+}
