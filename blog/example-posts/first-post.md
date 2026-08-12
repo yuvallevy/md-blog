@@ -45,13 +45,14 @@ def slugify(title):
     return slug.strip('-')
 ```
 
-Not every language in the color palette has a tokenizer behind it, though. TypeScript is one of them here - the block below still gets the right label and the right color, it just isn't token-colored line by line:
+Not every language in the color palette has a tokenizer behind it. C++ is one of them here - the block below still gets the right label and the right color, it just isn't token-colored line by line:
 
-```ts
-interface Post {
-  title: string;
-  written: Date;
-  draft?: boolean;
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    return 0;
 }
 ```
 
