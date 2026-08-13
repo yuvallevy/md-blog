@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blog;
 
 use League\CommonMark\Environment\Environment;
+use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
@@ -28,6 +29,9 @@ final class MarkdownEnvironment
         $environment->addExtension(new AttributesExtension());
         $environment->addExtension(new SmartPunctExtension());
         $environment->addRenderer(FencedCode::class, new FencedCodeRenderer(), 10);
+        // SmartPunct messes up on some apostrophes, so we fix them before the extension runs
+        // so it doesn't try to correct them incorrectly.
+        $environment->addEventListener(DocumentParsedEvent::class, new FixMisplacedApostrophesListener(), 10);
 
         return new MarkdownConverter($environment);
     }
