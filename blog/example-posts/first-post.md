@@ -1,51 +1,82 @@
 ---
 title: Hello, world! This is the example post
-subtitle: A tour of what this blog engine can do, for anyone setting up their own copy
+subtitle: A tour of what this blog engine can do
 written: 2026-08-09
+updated: 2026-08-13
+---
+
+If you're reading this on your live site, the engine is working! Basic Markdown should work here, including **bold** text, _italic_ text, `inline code`, and [links](https://example.com).
+
+If you're reading this on someone else's live site, they haven't made any posts yet. This website is probably under construction; best not to stick around.
+
+This post lives in `example-posts/`, and is not meant to be a permanent part of the blog. Your own posts will go under `posts/` as `*.md` files. Once you create your first post under `posts/`, this example post will no longer be visible or accessible, so you can safely keep it around for reference without worrying about it being seen by visitors.
+
+## How it works
+
+Posts are Markdown files with a YAML front matter header:
+
+```markdown
+---
+title: My first post
+subtitle: A short description of what this post is about
+written: 2026-08-10
 updated: 2026-08-10
 reviewers: [Alex, Sam]
 ---
 
-If you're reading this in a browser, the engine is working. If you're reading the raw file, you're looking at `example-posts/first-post.md` - source for everything below, front matter, code blocks, and all.
+Hello, world! This is my first post. Markdown is _nice_.
+```
 
-This lives in `example-posts/`, not `posts/`: it's only shown while `posts/` is empty. The moment you add your own first `.md` file to `posts/`, this whole directory stops being read and your real posts take over completely - nothing to delete, nothing to remember. Come back and reread it whenever you need a reference for what this engine can do.
+These are rendered by a custom PHP engine based on the League\CommonMark library with a few custom extensions. This engine supports:
 
-## How it works
+- Syntax highlighting for code blocks with color-coded language labels
+- Optional color-coding of inline code snippets based on the language
+- Smart punctuation, including curly quotes, em dashes, and ellipses
 
-Every post is a Markdown file with a little YAML front matter on top, sitting in `posts/` (or, for this one, `example-posts/`). There's no database and no admin panel - you write a file, upload it, and it shows up at a pretty URL. A small render cache keeps repeated requests from re-parsing the same file over and over, but it's dead simple: delete the `cache/` directory at any time and everything regenerates on the next request.
+Once rendered, the resulting HTML is cached for faster subsequent requests. The cache is automatically invalidated when the source Markdown file is updated.
 
-The router itself is short. This handles both `/blog` and `/blog/{slug}`:
+## How to add your first post
 
-```php
-$slug = $_GET['slug'] ?? null;
+Any new post you create under `posts/` will automatically appear on the index page, and will be accessible at `/blog/` plus the filename of the post (without the `.md` extension). For example, if you create a file called `my-first-post.md`, it will be accessible at `/blog/my-first-post`.
 
-if ($slug === null) {
-    $postMetadataList = $repository->listPublished();
-    require __DIR__ . '/templates/post-list.php';
-    return;
-}
+Posts can be marked as drafts by adding `draft: true` to the front matter. Draft posts will not appear on the index page, and will only be accessible to those with a direct link. This is useful for previewing your post and sharing it with a reviewer before it's ready for publication.
 
-$post = $repository->loadBySlug(is_string($slug) ? $slug : '');
+### Front matter fields
 
-if ($post === null) {
-    http_response_code(404);
-    require __DIR__ . '/templates/404.php';
-    return;
+`title` is the title of the post, as displayed on the index page and at the top of the post itself. This will not dictate the URL of the post; that is determined by the filename.
+
+`subtitle` is a short description of the post, also displayed on both the index page and at the top of the post itself. This is optional but recommended.
+
+`written` is the date the post was written, in YYYY-MM-DD format. You may interpret "written" loosely; "started writing" or "published" are both reasonable interpretations. This is required unless `draft` is `true`.
+
+`updated` is the date the post was last updated, in YYYY-MM-DD format. This is optional; if not provided, it will not be shown anywhere.
+
+`reviewers` is a list of names of people who have reviewed the post. This is optional; if not provided, it will not be shown anywhere. It is recommended to send your posts for review for feedback before publishing, and it is recommended to thank them for it because that's a nice thing to do.
+
+`draft` is a boolean indicating whether the post is a draft. Draft posts will not appear on the index page and will only be accessible to those with a direct link. This is optional; if not provided, it defaults to `false`.
+
+## Code blocks, inline code, and syntax highlighting
+
+This engine is optimized for programming polyglots, so it has a few features that make it easier to read code across multiple languages.
+
+Fenced code blocks get not only syntax highlighting, but also a color-coded label indicating the language. For example, this is a JavaScript code block:
+
+```js
+function helloWorld() {
+  console.log("Hello, world!");
 }
 ```
 
-## Code blocks get a little frame
+...and this is a Python code block:
 
-Fenced code blocks go through a custom renderer that labels the language and colors the label to match, on top of real tokenized highlighting where a grammar exists for the language:
-
-```python
-def slugify(title):
-    slug = title.lower()
-    slug = re.sub(r'[^a-z0-9]+', '-', slug)
-    return slug.strip('-')
+```py
+def hello_world():
+    print("Hello, world!")
 ```
 
-Not every language in the color palette has a tokenizer behind it. C++ is one of them here - the block below still gets the right label and the right color, it just isn't token-colored line by line:
+Inline code can also be given a language color with pandoc-style attribute syntax. For example, `` `null`{.js} `` and `` `None`{.py} `` will be color-coded to match the language of the code block examples above: `null`{.js} and `None`{.py}. Great for language-comparison posts. Don't confuse C#'s `record`{.cs} with TypeScript's `Record`{.ts} - they are entirely different things!
+
+Some languages don't have tokenizers, and will be rendered with a color-coded label but without syntax highlighting.
 
 ```cpp
 #include <iostream>
@@ -56,34 +87,48 @@ int main() {
 }
 ```
 
-If your favorite language shows up looking plain like that, it just means nobody's wired up a grammar for it yet in the highlighter this engine uses - the label and color still work regardless, and the block is still perfectly readable.
-
-Fences without a language tag are rendered in a plain frame with no label, and are not token-colored:
+Fences without a language tag will be rendered with a neutral gray label.
 
 ```
-This is a plain fence with no language tag. It gets a frame, but no label and no token coloring. It is still rendered as a code block, though, so it preserves whitespace and line breaks, and is still monospaced.
+This is a code block with no language tag, so it has no syntax highlighting.
 ```
 
-## Inline language colors
+Languages without an associated color will be rendered with a dark gray label.
 
-Sometimes a single word needs a color, not a whole block. Different languages spell the same idea differently, and reading it inline in two colors makes the comparison land faster than a whole second fenced block would: JavaScript calls it `null`{.js}, Python calls it `None`{.py} - same concept, two names, one line. Great for language-comparison posts.
+```VB6
+MsgBox "Hello, world!"
+```
 
-## Tables get more room than prose
+## Tables
 
-Regular text stays in a comfortable reading column, but tables tend to need more horizontal space than that column allows, so they're allowed to break out wider - up to a point, not all the way to the edges of the page:
+This blog engine supports GitHub Flavored Markdown tables. For example:
 
-| Language   | Fenced block tag | Tokenized here? | Inline class | Brand color | Why it's tokenized or not |
-|------------|:-----------------:|:------------------:|:--------------:|:-------------|:---------------------------|
-| TypeScript | `ts`              | No                | `.ts`          | `#3178C6`    | No grammar shipped for it in this version of the highlighter, so it falls back to plain text |
-| JavaScript | `js`              | Yes               | `.js`          | `#F1E05A`    | Ships a full grammar - keywords, strings, and comments all get their own token colors |
-| Python     | `py`              | Yes               | `.py`          | `#3572A5`    | Same as JavaScript - a real grammar, so every token gets colored individually |
-| C#         | `cs`              | No                | `.cs`          | `#178600`    | Falls back to plain text for the same reason as TypeScript - just no grammar yet |
-| Kotlin     | `kt`              | No                | `.kt`          | `#A97BFF`    | Also plain text - still gets the right label and color, just not per-token |
-| Rust       | `rs`              | No                | `.rs`          | `#DEA584`    | Same story - the label and chrome work regardless of tokenizer support |
-| Go         | `go`              | No                | `.go`          | `#00ADD8`    | Ditto - this table exists mostly to prove it can get wider than a sentence like this one |
+```markdown
+| Language | Hello, world! |
+|----------|----------------|
+| JavaScript | `console.log("Hello, world!");`{.js} |
+| Python | `print("Hello, world!")`{.py} |
+| C++ | `std::cout << "Hello, World!" << std::endl;`{.cpp} |
+| VB6 | `MsgBox "Hello, world!"` |
+```
 
-Try it at a few browser widths: the prose column above and below the table doesn't move, only the table gets extra room, and it scrolls horizontally instead of overflowing if it's ever wider than that.
+| Language | Hello, world! |
+|----------|----------------|
+| JavaScript | `console.log("Hello, world!");`{.js} |
+| Python | `print("Hello, world!")`{.py} |
+| C++ | `std::cout << "Hello, World!" << std::endl;`{.cpp} |
+| VB6 | `MsgBox "Hello, world!"` |
+
+Tables get more horizontal room than the main content area, so they can be wider than the rest of the post.
+
+| &nbsp; | JavaScript | Python | C++ | VB6 |
+|----------|------------|--------|-----|----------|
+| Implementation | Interpreted + JIT | Compiled and interpreted | Compiled to native | Compiled to native or P-code |
+| Paradigms | Procedural, functional, OO | Procedural, OO | Procedural, OO | Procedural, object-based |
+| Is taken seriously | Yes | Yes | Yes | Uhhhhh |
+
+Tables also become horizontally scrollable on small screens, so they don't break the layout.
 
 ## Summary
 
-That's the feature set this post exists to demonstrate: front matter with every field, a tokenized block, an untokenized block, inline language color, and a wide table. Write your own post the same way, and you're off. GLHF!
+That's it! You can now create your first post under `posts/` and it will automatically appear on the index page. Remember to use the front matter fields to provide metadata about your post, and take advantage of the syntax highlighting and language labeling features for any code you include. GLHF!
