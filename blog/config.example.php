@@ -11,6 +11,7 @@ declare(strict_types=1);
 return [
     'siteTitle' => 'My Blog',
     'authorName' => 'Your Name',
+    'authorEmail' => 'you@example.com',
     'homeLabel' => 'Back to homepage',
     'indexEyebrow' => 'Writing',
     'indexHeading' => 'Posts, thoughts, and updates.',

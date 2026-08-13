@@ -1,3 +1,6 @@
+      <p id="blog-closer">
+        For comments, questions, corrections, or other inquiries, please contact me at <a href="mailto:<?= htmlspecialchars($config['authorEmail']) ?>"><?= htmlspecialchars($config['authorEmail']) ?></a>.
+      </p>
     </main>
 
     <footer id="blog-footer">
