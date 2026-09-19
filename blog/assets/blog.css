@@ -21,7 +21,8 @@
 }
 
 #blog-index,
-#blog-404 {
+#blog-404,
+#blog-closer {
   padding-inline: calc(2rem + max(0px, 100vw - 800px) / 2);
 }
 
@@ -201,7 +202,6 @@ h1 {
 #blog-closer {
   font-size: 0.85em;
   color: var(--ink-soft);
-  max-width: 100ch;
   margin: 3rem auto 0;
 }
 
