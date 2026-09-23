@@ -162,6 +162,70 @@ h1 {
   margin-top: 2.5em;
 }
 
+/* Heading permalink styles for post body headings */
+.post-body :is(h2, h3, h4) {
+  position: relative;
+  scroll-margin-top: 1rem;
+}
+
+.post-body .heading-permalink {
+  opacity: 0.75;
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+
+.post-body h2 .heading-permalink {
+  color: var(--ruby-merlot);
+}
+
+@media (hover: none) {
+  .post-body .heading-permalink {
+    float: right;
+    font-size: 1.3rem;  /* Should NOT depend on current title size, hence rem */
+    /* Make tap area bigger without taking up extra space on the right */
+    padding-inline: 0.4em;
+    margin-inline-end: -0.4em;
+  }
+
+  .post-body .heading-permalink::after {
+    content: '¶';
+  }
+
+  /* Line heights manually tuned so the pilcrow aligns with the baseline of the first line of the title.
+    I tried various catch-all solutions, but none of them worked perfectly, probably because measurements here are
+    a bit of a mess. */
+  .post-body h2 .heading-permalink {
+    line-height: 2.8rem;
+  }
+
+  .post-body h3 .heading-permalink {
+    line-height: 1.8rem;
+  }
+
+  .post-body h4 .heading-permalink {
+    line-height: 1.4rem;
+  }
+}
+
+@media (hover: hover) {
+  .post-body .heading-permalink {
+    position: absolute;
+    right: 100%;
+    padding-inline-end: 0.4em;
+    opacity: 0;
+    transition: opacity 120ms ease-in;
+  }
+
+  .post-body :is(h2, h3, h4):hover .heading-permalink,
+  .post-body .heading-permalink:focus-visible {
+    opacity: 0.75;
+  }
+
+  .post-body .heading-permalink::after {
+    content: '#';
+  }
+}
+
 .post-body blockquote {
   margin-left: 0;
   padding: 0 1em 0 1.25em;

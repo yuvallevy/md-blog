@@ -79,7 +79,13 @@ Fenced code blocks are rendered by `Blog\FencedCodeRenderer`, which uses Tempest
 
 Inline code is rendered separately through a combination of `AttributesExtension` and CSS color classes in `blog/assets/blog.css`. This does not use Tempest.
 
+### Heading anchors
+
+Second-, third-, and fourth-level headings in a post body automatically have anchor links attached to them when rendered. (The top-level heading is excluded since that is the page itself.) The slugs are derived from the heading text itself, so editing a heading will change its corresponding anchor link.
+
+Titles with meaningful punctuation, such as `C#` or `C++`, will have their slugs correctly generated thanks to `Blog\HeadingSlugNormalizer`.
+
 ## Security notes
 
 - `blog/index.php` only accepts slugs that match the regex `/^[a-z0-9-]+$/` when lowercased. Path traversal and arbitrary file access are not possible.
-- Markdown is rendered using the default Commonmark configuration, which disables raw HTML and unsafe links. The only HTML allowed is what the Markdown parser itself generates.
+- Raw HTML and unsafe links are disabled when rendering Markdown, as per the default CommonMark configuration. The only HTML allowed is what the Markdown parser itself generates.
