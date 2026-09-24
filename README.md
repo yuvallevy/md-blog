@@ -41,10 +41,10 @@ composer install --no-dev --optimize-autoloader
 The whole project, as-is, including `vendor/`:
 
 - `theme.css` and any other HTML/JS/CSS files outside `blog/`
-- `.htaccess` (repo root - this is what makes `/blog` and `/blog/{slug}` work; without it those URLs 404)
-- `blog/` in full, including `vendor/`, `posts/`, `cache/` (can be uploaded empty - it self-populates), `composer.json`/`composer.lock`, and `config.php` if you created one (uploading without it just means the site runs with `config.example.php`'s placeholder branding)
+- `.htaccess` (repo root - this is what makes `/blog`, `/blog/{slug}` and `/blog/tags/{tag}` work; without it those URLs 404)
+- `blog/` in full, including `vendor/`, `posts/`, `cache/` (can be uploaded empty - it auto-populates), `composer.json`/`composer.lock`, and `config.php` if you created one (uploading without it just means the site runs with `config.example.php`'s placeholder branding)
 
-Set the domain to **PHP 8.3**. If using cPanel, this can be done through the **MultiPHP Manager**. Nothing else needs configuring - no cron jobs, no database, no `.env`.
+Set the domain to **PHP 8.3**. If using cPanel, this can be done through the **MultiPHP Manager**. Nothing else needs configuring - no cron jobs, database, or `.env`.
 
 ## Writing a post
 
@@ -57,6 +57,7 @@ subtitle: A subtitle, optional but recommended
 written: 2026-08-04     # optional if draft: true, otherwise required
 updated: 2026-08-10     # optional
 reviewers: [Alex, Sam]  # optional
+tags: [networking, C++] # optional
 draft: true             # optional, defaults false
 ---
 ```
@@ -64,6 +65,8 @@ draft: true             # optional, defaults false
 A post with `draft: true` will not show up on the `/blog` index but will still be accessible at its direct URL. This is useful for previewing a post before publishing or sending it to a reviewer. See `example-posts/draft-test.md` for a minimal example - visit `/blog/draft-test` directly, and confirm it does *not* appear on `/blog` (as long as `posts/` is still empty; once it has a real post, `example-posts/` stops being read - copy `draft-test.md` into `posts/` if you want to try this pattern with your real content).
 
 Fenced code blocks are highlighted and given a labeled, color-coded frame automatically based on the fence's language tag. Inline code can be given a language color with pandoc-style attribute syntax: `` `function`{.js} `` - useful when comparing two languages inline.
+
+Tags are shown at the bottom of each post, with each tag linking to `/blog/tags/{tag}`, a list of posts with that tag. Note that this means you can't name a post `tags.md`.
 
 ## How rendering works
 
@@ -83,7 +86,13 @@ Inline code is rendered separately through a combination of `AttributesExtension
 
 Second-, third-, and fourth-level headings in a post body automatically have anchor links attached to them when rendered. (The top-level heading is excluded since that is the page itself.) The slugs are derived from the heading text itself, so editing a heading will change its corresponding anchor link.
 
-Titles with meaningful punctuation, such as `C#` or `C++`, will have their slugs correctly generated thanks to `Blog\PunctuationAwareSlugNormalizer`.
+Titles have their slugs correctly generated thanks to `Blog\PunctuationAwareSlugNormalizer`, which covers some special cases involving punctuation and symbols.
+
+### Tags
+
+`Blog\Tag` pairs a tag's name, as written in the front matter, with the slug used to address it. Slugs come from `Blog\PunctuationAwareSlugNormalizer`.
+
+A tag page passes a filtered list to `templates/post-list.php` and a `$tag` to retitle itself with. Drafts are excluded there, exactly as they are on the index, so a tag used only by drafts (or a tag not used in any post) returns a 404 rather than an empty list.
 
 ## Security notes
 
