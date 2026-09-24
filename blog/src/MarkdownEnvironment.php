@@ -35,9 +35,9 @@ final class MarkdownEnvironment
                 'symbol' => '',
                 'title' => 'Permalink to this section',
             ],
-            // Uses the custom HeadingSlugNormalizer to correctly handle headings with meaningful punctuation.
+            // Uses the custom PunctuationAwareSlugNormalizer to correctly handle headings with meaningful punctuation.
             'slug_normalizer' => [
-                'instance' => new HeadingSlugNormalizer(),
+                'instance' => new PunctuationAwareSlugNormalizer(),
             ],
         ]);
 

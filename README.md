@@ -83,7 +83,7 @@ Inline code is rendered separately through a combination of `AttributesExtension
 
 Second-, third-, and fourth-level headings in a post body automatically have anchor links attached to them when rendered. (The top-level heading is excluded since that is the page itself.) The slugs are derived from the heading text itself, so editing a heading will change its corresponding anchor link.
 
-Titles with meaningful punctuation, such as `C#` or `C++`, will have their slugs correctly generated thanks to `Blog\HeadingSlugNormalizer`.
+Titles with meaningful punctuation, such as `C#` or `C++`, will have their slugs correctly generated thanks to `Blog\PunctuationAwareSlugNormalizer`.
 
 ## Security notes
 

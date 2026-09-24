@@ -11,14 +11,14 @@ use League\Config\ConfigurationInterface;
 
 /**
  * An extension of CommonMark's built-in slug normalizer that handles special cases related to punctuation.
- * e.g. a section titled "An A+-worthy essay about C#'s type system" will be correctly slugged as
+ * e.g. "An A+-worthy essay about C#'s type system" will be correctly slugged as
  * "an-a-plus-worthy-essay-about-c-sharps-type-system".
  */
-final class HeadingSlugNormalizer implements TextNormalizerInterface, ConfigurationAwareInterface {
+final class PunctuationAwareSlugNormalizer implements TextNormalizerInterface, ConfigurationAwareInterface {
     private readonly SlugNormalizer $inner;
 
     /**
-     * These substitutions will be applied to the heading text before it is passed to the inner slug normalizer.
+     * These substitutions will be applied to the text before it is passed to the inner slug normalizer.
      * Each key is a regular expression pattern, and each value is the replacement string.
      */
     private array $substitutions = [
