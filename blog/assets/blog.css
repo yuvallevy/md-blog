@@ -334,6 +334,15 @@ figure.code code {
 .hl-comment { color: var(--ink-faint); font-style: italic; }
 .hl-injection { color: var(--amber-lager); }
 
+.post .tags {
+  margin-top: 3em;
+}
+
+.tag.post-tag {
+  font-size: 0.9em;
+  position: relative;
+}
+
 /* Language-specific classes for inline code spans.
    Keep in sync with the `Languages` class in `blog/src/Languages.php`. */
 code.ts { color: #246AB5; }

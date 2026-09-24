@@ -58,7 +58,11 @@ function friendlyList(array $items): string {
   </div>
 
   <?php if ($post->metadata->tags !== []): ?>
-    <p>Tags: <?php echo implode(', ', array_map(fn($tag) => htmlspecialchars($tag->name), $post->metadata->tags)) ?></p>
+    <ul class="tags">
+      <?php foreach ($post->metadata->tags as $postTag): ?>
+        <li class="tag post-tag"><?= htmlspecialchars($postTag->name) ?></li>
+      <?php endforeach; ?>
+    </ul>
   <?php endif; ?>
 </article>
 

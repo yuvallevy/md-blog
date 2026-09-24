@@ -87,6 +87,24 @@ a:visited {
   font-weight: 700;
 }
 
+.tags {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 0.7em;
+  margin-top: 0.5em;
+}
+
+.tag {
+  background: var(--paper-2);
+  color: var(--reserve-burgundy);
+  padding-block: 0.15em;
+  padding-inline: calc(0.7em + var(--border-radius) / 8);
+  border: 1px solid var(--line);
+  border-radius: var(--border-radius);
+}
+
 code {
   font-family: var(--mono-font-family);
   font-size: 0.9em;
