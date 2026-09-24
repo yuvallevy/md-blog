@@ -2,20 +2,26 @@
 
 /**
  * @var list<\Blog\PostMetadata> $postMetadataList
+ * @var \Blog\Tag|null $tag  set only when the list is filtered to a single tag
  * @var array $config
  */
 
 declare(strict_types=1);
 
-$pageTitle = $config['siteTitle'];
+$tag ??= null;
+
+$eyebrow = $tag !== null ? 'Tagged' : $config['indexEyebrow'];
+$heading = $tag !== null ? 'Posts tagged “' . $tag->name . '”' : $config['indexHeading'];
+
+$pageTitle = $tag !== null ? $heading . ' - ' . $config['siteTitle'] : $config['siteTitle'];
 $pageDescription = null;
 
 require __DIR__ . '/fragments/layout-top.php';
 ?>
 
 <section id="blog-index">
-  <div class="eyebrow"><?= htmlspecialchars($config['indexEyebrow']) ?></div>
-  <h1><?= htmlspecialchars($config['indexHeading']) ?></h1>
+  <div class="eyebrow"><?= htmlspecialchars($eyebrow) ?></div>
+  <h1><?= htmlspecialchars($heading) ?></h1>
 
   <?php if ($postMetadataList === []): ?>
     <p class="muted">Nothing here yet - check back soon.</p>

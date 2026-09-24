@@ -35,6 +35,8 @@ if ($tagSlug !== null) {
         return;
     }
 
+    // If any posts were found, use the first matched post to reconstruct the tag's display name
+    $tag = $postMetadataList[0]->tagBySlug($tagSlug);
     require __DIR__ . '/templates/post-list.php';
     return;
 }
