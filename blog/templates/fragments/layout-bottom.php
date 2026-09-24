@@ -4,7 +4,7 @@
     </main>
 
     <footer id="blog-footer">
-      <?php if (isset($post)): ?>
+      <?php if (isset($post) || isset($tag)): ?>
         <a href="/blog">&larr; Back to index</a>
       <?php else: ?>
         <a href="/">&larr; <?= htmlspecialchars($config['homeLabel']) ?></a>
