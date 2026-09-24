@@ -20,6 +20,10 @@ final class Tag {
         return new self(trim($name), self::slugify($name));
     }
 
+    public function url(): string {
+        return '/blog/?tag=' . $this->slug;
+    }
+
     private static function slugify(string $name): string {
         self::$slugNormalizer ??= new PunctuationAwareSlugNormalizer();
         return self::$slugNormalizer->normalize($name);

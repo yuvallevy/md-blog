@@ -343,6 +343,23 @@ figure.code code {
   position: relative;
 }
 
+.tag.post-tag a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Tap into dark magic to stretch the link's hit area over the whole chip */
+.tag.post-tag a::after {
+  content: '';
+  position: absolute;
+  inset: 0;  /* .post-tag has position: relative, so a::after will cover it entirely */
+}
+
+.tag.post-tag:hover {
+  background: var(--paper-3);
+  border-color: var(--ink-faint);
+}
+
 /* Language-specific classes for inline code spans.
    Keep in sync with the `Languages` class in `blog/src/Languages.php`. */
 code.ts { color: #246AB5; }

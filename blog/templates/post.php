@@ -60,7 +60,7 @@ function friendlyList(array $items): string {
   <?php if ($post->metadata->tags !== []): ?>
     <ul class="tags">
       <?php foreach ($post->metadata->tags as $postTag): ?>
-        <li class="tag post-tag"><?= htmlspecialchars($postTag->name) ?></li>
+        <li class="tag post-tag"><a href="<?= htmlspecialchars($postTag->url()) ?>"><?= htmlspecialchars($postTag->name) ?></a></li>
       <?php endforeach; ?>
     </ul>
   <?php endif; ?>
