@@ -3,7 +3,7 @@ title: Hello, world! This is the example post
 subtitle: A tour of what this blog engine can do
 written: 2026-08-09
 updated: 2026-08-13
-tags: [demos]
+tags: [Markdown blog demos]
 ---
 
 If you're reading this on your live site, the engine is working! Basic Markdown should work here, including **bold** text, _italic_ text, `inline code`, and [links](https://example.com).
