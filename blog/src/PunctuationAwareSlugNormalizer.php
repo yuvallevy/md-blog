@@ -22,8 +22,8 @@ final class PunctuationAwareSlugNormalizer implements TextNormalizerInterface, C
      * Each key is a regular expression pattern, and each value is the replacement string.
      */
     private array $substitutions = [
-        '/(?<=\b[A-D])\+(?=\b|[^A-Z0-9+])/' => '-plus',
-        '/(?<=\b[A-G])#(?=\b|[^A-Z0-9])/' => '-sharp',
+        '/(?<=\b[A-D])\+(?![A-Z0-9+])/' => '-plus',
+        '/(?<=\b[A-G])#(?![A-Z0-9])/' => '-sharp',
         '/\bC\+\+/' => 'cpp',
     ];
 
