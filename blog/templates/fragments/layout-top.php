@@ -7,6 +7,10 @@
 ?><!DOCTYPE html>
 <html lang="en">
   <head>
+    <style>
+      <?php include __DIR__ . '/../../../theme.css'; /* include critical CSS via PHP to prevent FOUC */ ?>
+    </style>
+    <link rel="stylesheet" href="/blog/assets/blog.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= htmlspecialchars($pageTitle) ?></title>
@@ -27,8 +31,6 @@
     <?php endif; ?>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="<?= htmlspecialchars($config['siteTitle']) ?>" />
-    <link rel="stylesheet" href="/theme.css" />
-    <link rel="stylesheet" href="/blog/assets/blog.css" />
   </head>
 
   <body>
