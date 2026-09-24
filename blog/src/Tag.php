@@ -21,7 +21,7 @@ final class Tag {
     }
 
     public function url(): string {
-        return '/blog/?tag=' . $this->slug;
+        return '/blog/tags/' . $this->slug;
     }
 
     private static function slugify(string $name): string {
