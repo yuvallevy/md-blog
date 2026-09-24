@@ -44,6 +44,20 @@ final class PostMetadata {
     }
 
     /**
+     * Finds this post's tag with the given slug to reconstruct its display name.
+     * Different tags that translate to the same slug will all match this lookup.
+     */
+    public function tagBySlug(string $slug): ?Tag {
+        foreach ($this->tags as $tag) {
+            if ($tag->slug === $slug) {
+                return $tag;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Symfony's YAML parser resolves bare `YYYY-MM-DD` to a Unix
      * timestamp (int) rather than a string or DateTime instance, but keeps quoted strings as-is.
      * Since we may encounter both, we handle both cases here.

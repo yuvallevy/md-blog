@@ -39,6 +39,19 @@ final class PostRepository {
         return $posts;
     }
 
+    /**
+     * Returns the published posts with the tag with the given slug, newest first.
+     * Does not include drafts, matching the behavior of `listPublished()`.
+     *
+     * @return list<PostMetadata>
+     */
+    public function listPublishedByTag(string $tagSlug): array {
+        return array_values(array_filter(
+            $this->listPublished(),
+            static fn (PostMetadata $postMetadata): bool => $postMetadata->tagBySlug($tagSlug) !== null,
+        ));
+    }
+
     public function loadBySlug(string $rawSlug): ?Post {
         $slug = strtolower($rawSlug);
         if (!self::isValidSlug($slug)) {

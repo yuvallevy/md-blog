@@ -21,6 +21,24 @@ $repository = new PostRepository(
     new RenderCache(__DIR__ . '/cache'),
 );
 
+// If a tag slug is given, filter the list of posts to only those with the matching tag
+$tagSlug = $_GET['tag'] ?? null;
+
+if ($tagSlug !== null) {
+    $tagSlug = strtolower(is_string($tagSlug) ? $tagSlug : '');
+    $postMetadataList = $repository->listPublishedByTag($tagSlug);
+
+    // If no posts were found with the given tag, show a 404 page, as if navigating to a nonexistent page
+    if ($postMetadataList === []) {
+        http_response_code(404);
+        require __DIR__ . '/templates/404.php';
+        return;
+    }
+
+    require __DIR__ . '/templates/post-list.php';
+    return;
+}
+
 $slug = $_GET['slug'] ?? null;
 
 if ($slug === null) {
