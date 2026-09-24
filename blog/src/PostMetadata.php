@@ -14,6 +14,8 @@ final class PostMetadata {
         public readonly ?DateTimeImmutable $written,
         public readonly ?DateTimeImmutable $updated,
         public readonly array $reviewers,
+        /** @var list<Tag> */
+        public readonly array $tags,
         public readonly bool $draft,
     ) {
     }
@@ -36,6 +38,7 @@ final class PostMetadata {
             written: $written,
             updated: self::parseDate($frontMatter['updated'] ?? null),
             reviewers: array_map('strval', (array) ($frontMatter['reviewers'] ?? [])),
+            tags: array_map(Tag::fromName(...), array_map('strval', (array) ($frontMatter['tags'] ?? []))),
             draft: $draft,
         );
     }

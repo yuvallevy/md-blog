@@ -2,6 +2,7 @@
 title: A post still in progress
 subtitle: You should only be able to find this one by its direct link
 draft: true
+tags: [demos]
 ---
 
 If you can see this, you followed a direct link to `/blog/draft-test`.
