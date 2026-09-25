@@ -100,6 +100,24 @@ Languages without an associated color will be rendered with a dark gray label.
 MsgBox "Hello, world!"
 ```
 
+## Footnotes
+
+Footnotes are rendered using the standard CommonMark footnote extension, appearing as superscript links in the text that lead to the corresponding footnote content at the bottom of the post.
+
+```markdown
+Here is an example of a footnote.[^1]
+
+[^1]: A footnote is a note that's 12 inches (30.48 cm) long.
+```
+
+Watch out for footnotes after exclamation marks - some trickery is required to ensure the footnote link is correctly recognized by the parser:
+
+```markdown
+Here is an example of a footnote after an exclamation mark\![^1]
+```
+
+Without the backslash, the exclamation mark and brackets will be interpreted as image syntax, and the intended footnote link will not show up.
+
 ## Tables
 
 This blog engine supports GitHub Flavored Markdown tables. For example:
