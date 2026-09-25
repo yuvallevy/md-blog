@@ -380,3 +380,24 @@ code.php { color: #4F5D95; }
 code.html { color: #B53A1B; }
 code.css { color: #663399; }
 code.rb { color: #701516; }
+
+.footnotes {
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px solid var(--line);
+}
+
+.footnotes > ol {
+  padding-left: 1.5em;
+  list-style-type: decimal;
+}
+
+.footnote p {
+  margin: 0.5em 0;
+}
+
+a.footnote-ref, a.footnote-backref {
+  letter-spacing: 0;
+  text-decoration: none;
+  padding-inline: 0.1em;
+}

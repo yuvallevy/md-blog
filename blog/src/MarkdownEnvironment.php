@@ -9,6 +9,7 @@ use League\CommonMark\Event\DocumentParsedEvent;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\Extension\FrontMatter\FrontMatterExtension;
+use League\CommonMark\Extension\Footnote\FootnoteExtension;
 use League\CommonMark\Extension\FrontMatter\Output\RenderedContentWithFrontMatter;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\Attributes\AttributesExtension;
@@ -39,10 +40,14 @@ final class MarkdownEnvironment
             'slug_normalizer' => [
                 'instance' => new PunctuationAwareSlugNormalizer(),
             ],
+            'footnote' => [
+                'container_add_hr' => false,
+            ],
         ]);
 
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
+        $environment->addExtension(new FootnoteExtension());
         $environment->addExtension(new FrontMatterExtension());
         $environment->addExtension(new AttributesExtension());
         $environment->addExtension(new SmartPunctExtension());

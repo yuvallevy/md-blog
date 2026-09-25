@@ -132,4 +132,6 @@ Tables also become horizontally scrollable on small screens, so they don't break
 
 ## Summary
 
-That's it! You can now create your first post under `posts/` and it will automatically appear on the index page. Remember to use the front matter fields to provide metadata about your post, and take advantage of the syntax highlighting and language labeling features for any code you include. GLHF!
+That's it! You can now create your first post under `posts/` and it will automatically appear on the index page. Remember to use the front matter fields to provide metadata about your post, and take advantage of the syntax highlighting and language labeling features for any code you include. GLHF\![^1]
+
+[^1]: Stands for: "Good Luck, Have Fun".
